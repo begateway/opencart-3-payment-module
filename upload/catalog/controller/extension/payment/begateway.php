@@ -57,11 +57,36 @@ class ControllerExtensionPaymentBeGateway extends Controller {
 
     $transaction_type='payment';
 
+    $payment_methods_array = array(
+      'types' => array(
+      )
+    );
+
+    $pm_type = $this->config->get('payment_begateway_payment_type');
+    if ($pm_type['card'] == 1) {
+      $payment_methods_array['types'][] = 'credit_card';
+    }
+
+    if ($pm_type['halva'] == 1) {
+      $payment_methods_array['types'][] = 'halva';
+    }
+
+    if ($pm_type['erip'] == 1) {
+      $payment_methods_array['types'][] = 'erip';
+      $payment_methods_array['erip'] = array(
+        'order_id' => $order_info['order_id'],
+        'account_number' => $order_info['order_id'],
+        'service_no' => $this->config->get('payment_begateway_erip_service_no'),
+        'service_info' => array($order_array['description'])
+      );
+    }
+
     $checkout_array = array(
       'transaction_type' => $transaction_type,
       'settings' =>$setting_array,
       'order' => $order_array,
       'customer' => $customer_array,
+      'payment_method' => $payment_methods_array
       );
 
     $token_json =  array('checkout' =>$checkout_array );

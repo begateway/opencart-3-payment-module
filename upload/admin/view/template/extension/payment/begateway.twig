@@ -52,6 +52,35 @@
               {% endif %}
             </div>
           </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="begateway_payment_type">{{ entry_payment_type }}</label>
+            <div class="col-sm-10">
+              <p>
+                <input type="hidden" name="payment_begateway_payment_type[card]" value="0" />
+                <input type='checkbox' name='payment_begateway_payment_type[card]' id="begateway_payment_type" value='1' {{ payment_begateway_payment_type.card is defined and payment_begateway_payment_type.card == 1 ? 'checked="checked"' : '' }} /> {{ entry_payment_type_card }}
+              </p>
+              <p>
+                <input type="hidden" name="payment_begateway_payment_type[halva]" value="0" />
+                <input type='checkbox' name='payment_begateway_payment_type[halva]' value='1' {{ payment_begateway_payment_type.halva is defined and payment_begateway_payment_type.halva == 1 ? 'checked="checked"' : '' }} /> {{ entry_payment_type_halva }}
+              </p>
+              <p>
+                <input type="hidden" name="payment_begateway_payment_type[erip]" value="0" />
+                <input type='checkbox' name='payment_begateway_payment_type[erip]' value='1' {{ payment_begateway_payment_type.erip is defined and payment_begateway_payment_type.erip == 1 ? 'checked="checked"' : '' }} /> {{ entry_payment_type_erip }}
+              </p>
+      			  {% if error_payment_type %}
+      			  <div class="text-danger">{{ error_payment_type }}</div>
+      			  {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="erip_service_no-key">{{ entry_payment_begateway_erip_service_no }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_erip_service_no" value="{{ payment_begateway_erip_service_no }}" placeholder="{{ entry_payment_begateway_erip_service_no }}" id="erip_service_no" class="form-control" />
+              {% if error_erip_service_no %}
+              <div class="text-danger">{{ error_erip_service_no }}</div>
+              {% endif %}
+            </div>
+          </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
             <div class="col-sm-10">

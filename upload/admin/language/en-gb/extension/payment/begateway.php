@@ -28,13 +28,18 @@ $_['entry_encyptionkey']   = 'Shop secret key';
 $_['entry_encyptionkey_help']  = 'You can find your shop secret key in your backoffice at the shop settings page';
 $_['entry_domain_payment_page']      = 'Payment page domain';
 $_['entry_domain_payment_page_help'] = 'Payment page domain received from your payment processor e.g. checkout.processor.com';
-$_['entry_transaction_type_text']          = 'Transaction type';
-$_['entry_transaction_type_authorization'] = 'authorization';
-$_['entry_transaction_type_payment'] = 'payment';
+$_['entry_payment_type']		= 'Payment Type';
+$_['entry_payment_type_card']		= 'Bankcard';
+$_['entry_payment_type_halva']		= 'Bankcard Halva';
+$_['entry_payment_type_erip']		= 'ERIP';
+$_['entry_payment_begateway_erip_service_no'] = 'ERIP service code';
+
 
 // Error
 $_['error_permission']      = 'Warning: You do not have permission to modify the payment module!';
 $_['error_companyid']       = 'Shop Id required!';
 $_['error_encyptionkey']    = 'Shop secret key required!';
 $_['error_domain_payment_page']    = 'Payment page domain required!';
+$_['error_payment_type']		= 'At least one payment type is required!';
+$_['error_erip_service_no'] = 'ERIP service code required!';
 ?>

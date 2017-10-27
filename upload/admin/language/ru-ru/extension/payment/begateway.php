@@ -28,13 +28,17 @@ $_['entry_encyptionkey']   = 'Ключ магазина';
 $_['entry_encyptionkey_help']  = 'Вы можете найти ключ магазина в вашем личном кабинете на странице настроек магазина';
 $_['entry_domain_payment_page']      = 'Домен страницы оплаты';
 $_['entry_domain_payment_page_help'] = 'Домен страницы оплаты, полученный от вашей платежной компании';
-$_['entry_transaction_type_text']          = 'Тип транзакции';
-$_['entry_transaction_type_authorization'] = 'Пре-авторизация';
-$_['entry_transaction_type_payment'] = 'Оплата';
+$_['entry_payment_type']		= 'Способ оплаты';
+$_['entry_payment_type_card']		= 'Банковская карта';
+$_['entry_payment_type_halva']		= 'Карта Халва';
+$_['entry_payment_type_erip']		= 'ЕРИП';
+$_['entry_payment_begateway_erip_service_no'] = 'Код услуги ЕРИП';
 
 // Error
 $_['error_permission']      = 'Внимание: У вас нет прав для изменения настроек модуля оплаты!';
 $_['error_companyid']       = 'Id магазина обязателен!';
 $_['error_encyptionkey']    = 'Ключ магазина обязателен!';
 $_['error_domain_payment_page']    = 'Домен платежного шлюза обязателен!';
+$_['error_payment_type']		= 'Требуется указать доступные способы оплаты!';
+$_['error_erip_service_no'] = 'Код услуги ЕРИП обязателен!';
 ?>

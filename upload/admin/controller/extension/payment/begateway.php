@@ -43,9 +43,10 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     $data['entry_encyptionkey_help'] = $this->language->get('entry_encyptionkey_help');
     $data['entry_domain_payment_page'] = $this->language->get('entry_domain_payment_page');
     $data['entry_domain_payment_page_help'] = $this->language->get('entry_domain_payment_page_help');
-    $data['entry_transaction_type_text'] = $this->language->get('entry_transaction_type_text');
-    $data['entry_transaction_type_authorization'] = $this->language->get('entry_transaction_type_authorization');
-    $data['entry_transaction_type_payment'] = $this->language->get('entry_transaction_type_payment');
+    $data['entry_payment_type'] = $this->language->get('entry_payment_type');
+    $data['entry_payment_type_card'] = $this->language->get('entry_payment_type_card');
+    $data['entry_payment_type_halva'] = $this->language->get('entry_payment_type_halva');
+    $data['entry_payment_type_erip'] = $this->language->get('entry_payment_type_erip');
     $data['button_save'] = $this->language->get('button_save');
     $data['button_cancel'] = $this->language->get('button_cancel');
     $data['tab_general'] = $this->language->get('tab_general');
@@ -72,6 +73,18 @@ class ControllerExtensionPaymentBeGateway extends Controller {
       $data['error_domain_payment_page'] = $this->error['domain_payment_page'];
     } else {
       $data['error_domain_payment_page'] = '';
+    }
+
+    if (isset($this->error['payment_type'])) {
+      $data['error_payment_type'] = $this->error['payment_type'];
+    } else {
+      $data['error_payment_type'] = '';
+    }
+
+    if (isset($this->error['erip_service_no'])) {
+      $data['error_erip_service_no'] = $this->error['erip_service_no'];
+    } else {
+      $data['error_erip_service_no'] = '';
     }
 
     $data['breadcrumbs'] = array();
@@ -115,6 +128,18 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     } else {
       $data['payment_begateway_domain_payment_page'] = $this->config->get('payment_begateway_domain_payment_page');
     }
+
+		if (isset($this->request->post['payment_begateway_payment_type'])) {
+			$data['payment_begateway_payment_type'] = $this->request->post['payment_begateway_payment_type'];
+		} else {
+			$data['payment_begateway_payment_type'] = $this->config->get('payment_begateway_payment_type');
+		}
+
+		if (isset($this->request->post['payment_begateway_erip_service_no'])) {
+			$data['payment_begateway_erip_service_no'] = $this->request->post['payment_begateway_erip_service_no'];
+		} else {
+			$data['payment_begateway_erip_service_no'] = $this->config->get('payment_begateway_erip_service_no');
+		}
 
     if (isset($this->request->post['payment_begateway_completed_status_id'])) {
       $data['payment_begateway_completed_status_id'] = $this->request->post['payment_begateway_completed_status_id'];
@@ -178,6 +203,23 @@ class ControllerExtensionPaymentBeGateway extends Controller {
 
     if (!$this->request->post['payment_begateway_domain_payment_page']) {
       $this->error['domain_payment_page'] = $this->language->get('error_domain_payment_page');
+    }
+
+		if (!isset($this->request->post['payment_begateway_payment_type'])) {
+			$this->error['payment_type'] = $this->language->get('error_payment_type');
+		} else {
+      $sum = 0;
+      foreach($this->request->post['payment_begateway_payment_type'] as $k => $v) {
+        $sum = $sum + $this->request->post['payment_begateway_payment_type'][$k];
+      }
+      if ($sum == 0)
+  			$this->error['payment_type'] = $this->language->get('error_payment_type');
+    }
+
+    if (isset($this->request->post['payment_begateway_payment_type']) &&
+        $this->request->post['payment_begateway_payment_type']['erip'] == 1 &&
+        empty($this->request->post['payment_begateway_erip_service_no'])) {
+      $this->error['erip_service_no'] = $this->language->get('error_erip_service_no');
     }
 
     return !$this->error;
