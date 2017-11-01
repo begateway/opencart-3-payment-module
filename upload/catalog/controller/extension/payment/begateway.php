@@ -40,7 +40,6 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     }
 
     $order_array = array ( 'currency'=> $order_info['currency_code'],
-      'version' => '2.1',
       'amount' => $orderAmount,
       'description' => $this->language->get('text_order'). ' ' .$order_info['order_id'],
       'tracking_id' => $order_info['order_id']);
@@ -82,6 +81,7 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     }
 
     $checkout_array = array(
+      'version' => '2.1',
       'transaction_type' => $transaction_type,
       'settings' =>$setting_array,
       'order' => $order_array,
