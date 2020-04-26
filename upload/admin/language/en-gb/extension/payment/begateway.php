@@ -33,6 +33,8 @@ $_['entry_payment_type_card']		= 'Bankcard';
 $_['entry_payment_type_halva']		= 'Bankcard Halva';
 $_['entry_payment_type_erip']		= 'ERIP';
 $_['entry_payment_begateway_erip_service_no'] = 'ERIP service code';
+$_['entry_test_mode'] = 'Test mode';
+$_['entry_test_mode_help'] = 'Enable to accept test payments';
 
 
 // Error

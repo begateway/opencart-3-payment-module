@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  opencart: &opencart
+    build: &build
+      context: ./docker
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - 80:80
+    cap_add:
+      - NET_ADMIN
+    tty: true
+    volumes:
+      - ./upload/admin/controller/extension/payment/begateway.php:/var/www/html/admin/controller/extension/payment/begateway.php
+      - ./upload/admin/language/en-gb/extension/payment/begateway.php:/var/www/html/admin/language/en-gb/extension/payment/begateway.php
+      - ./upload/admin/language/ru-ru/extension/payment/begateway.php:/var/www/html/admin/language/ru-ru/extension/payment/begateway.php
+      - ./upload/admin/view/image/payment/begateway.png:/var/www/html/admin/view/image/payment/begateway.png
+      - ./upload/admin/view/template/extension/payment/begateway.twig:/var/www/html/admin/view/template/extension/payment/begateway.twig
+      - ./upload/catalog/controller/extension/payment/begateway.php:/var/www/html/catalog/controller/extension/payment/begateway.php
+      - ./upload/catalog/language/en-gb/extension/payment/begateway.php:/var/www/html/catalog/language/en-gb/extension/payment/begateway.php
+      - ./upload/catalog/language/ru-ru/extension/payment/begateway.php:/var/www/html/catalog/language/ru-ru/extension/payment/begateway.php
+      - ./upload/catalog/model/extension/payment/begateway.php:/var/www/html/catalog/model/extension/payment/begateway.php
+      - ./upload/catalog/view/theme/default/template/extension/payment/begateway.twig:/var/www/html/catalog/view/theme/default/template/extension/payment/begateway.twig
+    restart: always
+
+  ocstore_3_0:
+    build:
+      args:
+        opencart_version: "ocStore-3.0.2.0"
+      <<: *build
+    <<: *opencart
+
+  opencart_3_0:
+    build:
+      args:
+        opencart_version: "opencart-3.0.3.2"
+      <<: *build
+    <<: *opencart
+
+  mysql:
+    image: mysql:5.5
+    restart: always
+    volumes:
+      - /var/lib/mysql
+      - ./docker/etc/mysql/mysql.conf.d/sql_mode.cnf:/etc/mysql/mysql.conf.d/sql_mode.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: opencart

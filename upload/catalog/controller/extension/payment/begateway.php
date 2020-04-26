@@ -83,6 +83,7 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     $checkout_array = array(
       'version' => '2.1',
       'transaction_type' => $transaction_type,
+      'test' => intval($this->config->get('payment_begateway_test_mode')) == 1,
       'settings' =>$setting_array,
       'order' => $order_array,
       'customer' => $customer_array,
