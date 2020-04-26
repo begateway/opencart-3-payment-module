@@ -33,6 +33,8 @@ $_['entry_payment_type_card']		= 'Банковская карта';
 $_['entry_payment_type_halva']		= 'Карта Халва';
 $_['entry_payment_type_erip']		= 'ЕРИП';
 $_['entry_payment_begateway_erip_service_no'] = 'Код услуги ЕРИП';
+$_['entry_test_mode'] = 'Тестовый режим';
+$_['entry_test_mode_help'] = 'Включает возможность приема тестовых платежей';
 
 // Error
 $_['error_permission']      = 'Внимание: У вас нет прав для изменения настроек модуля оплаты!';

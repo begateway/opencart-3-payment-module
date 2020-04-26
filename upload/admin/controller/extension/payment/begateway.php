@@ -47,6 +47,8 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     $data['entry_payment_type_card'] = $this->language->get('entry_payment_type_card');
     $data['entry_payment_type_halva'] = $this->language->get('entry_payment_type_halva');
     $data['entry_payment_type_erip'] = $this->language->get('entry_payment_type_erip');
+    $data['entry_test_mode'] = $this->language->get('entry_test_mode');
+    $data['entry_test_mode_help'] = $this->language->get('entry_test_mode_help');
     $data['button_save'] = $this->language->get('button_save');
     $data['button_cancel'] = $this->language->get('button_cancel');
     $data['tab_general'] = $this->language->get('tab_general');
@@ -161,6 +163,12 @@ class ControllerExtensionPaymentBeGateway extends Controller {
       $data['payment_begateway_status'] = $this->request->post['payment_begateway_status'];
     } else {
       $data['payment_begateway_status'] = $this->config->get('payment_begateway_status');
+    }
+
+    if (isset($this->request->post['payment_begateway_test_mode'])) {
+      $data['payment_begateway_test_mode'] = $this->request->post['payment_begateway_test_mode'];
+    } else {
+      $data['payment_begateway_test_mode'] = $this->config->get('payment_begateway_test_mode');
     }
 
     if (isset($this->request->post['payment_begateway_geo_zone_id'])) {
