@@ -213,17 +213,6 @@ class ControllerExtensionPaymentBeGateway extends Controller {
       $this->error['domain_payment_page'] = $this->language->get('error_domain_payment_page');
     }
 
-		if (!isset($this->request->post['payment_begateway_payment_type'])) {
-			$this->error['payment_type'] = $this->language->get('error_payment_type');
-		} else {
-      $sum = 0;
-      foreach($this->request->post['payment_begateway_payment_type'] as $k => $v) {
-        $sum = $sum + $this->request->post['payment_begateway_payment_type'][$k];
-      }
-      if ($sum == 0)
-  			$this->error['payment_type'] = $this->language->get('error_payment_type');
-    }
-
     if (isset($this->request->post['payment_begateway_payment_type']) &&
         $this->request->post['payment_begateway_payment_type']['erip'] == 1 &&
         empty($this->request->post['payment_begateway_erip_service_no'])) {

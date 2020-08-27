@@ -6,9 +6,16 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     $this->language->load('extension/payment/begateway');
     $this->load->model('checkout/order');
 
-    $data['action'] = 'https://' . $this->config->get('payment_begateway_domain_payment_page') . '/v' . self::API_VERSION . '/checkout';
+    $checkout_data = $this->generateToken();
+
+    if ($checkout_data) {
+      $data['action'] = strtok($checkout_data['redirect_url'], '?');
+      $data['token'] = $checkout_data['token'];
+    } else {
+      $data['token'] = false;
+    }
+
     $data['button_confirm'] = $this->language->get('button_confirm');
-    $data['token'] = $this->generateToken();
     $data['token_error'] = $this->language->get('token_error');
     $data['order_id'] = $this->session->data['order_id'];
 
@@ -86,9 +93,12 @@ class ControllerExtensionPaymentBeGateway extends Controller {
       'test' => intval($this->config->get('payment_begateway_test_mode')) == 1,
       'settings' =>$setting_array,
       'order' => $order_array,
-      'customer' => $customer_array,
-      'payment_method' => $payment_methods_array
+      'customer' => $customer_array
       );
+
+    if (count($payment_methods_array['types']) > 0) {
+      $checkout_array['payment_method'] = $payment_methods_array;
+    }
 
     $token_json =  array('checkout' =>$checkout_array );
 
@@ -106,6 +116,7 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+      'X-API-Version: ' . self::API_VERSION,
       'Content-Type: application/json',
       'Content-Length: '.strlen($post_string))) ;
     curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
@@ -140,7 +151,7 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     }
 
     if (isset($token['checkout']) && isset($token['checkout']['token'])) {
-      return $token['checkout']['token'];
+      return $token['checkout'];
     } else {
       $this->log->write("No payment token in response: $response");
       return false;
@@ -167,6 +178,10 @@ class ControllerExtensionPaymentBeGateway extends Controller {
 
     $post_array = json_decode($postData, true);
 
+    if (!isset($post_array['transaction'])) {
+      return;
+    }
+
     $order_id = $post_array['transaction']['tracking_id'];
 
     $order_id = $post_array['transaction']['tracking_id'];
@@ -174,11 +189,14 @@ class ControllerExtensionPaymentBeGateway extends Controller {
 
     $transaction_id = $post_array['transaction']['uid'];
     $transaction_message = $post_array['transaction']['message'];
-    $three_d = $post_array['transaction']['three_d_secure_verification']['pa_status'];
-    if (isset($three_d)) {
-      $three_d = '3-D Secure: ' . $three_d . '.';
-    } else {
-      $three_d = '';
+
+    $three_d = '';
+
+    if (isset($post_array['transaction']['three_d_secure_verification'])) {
+      $three_d = $post_array['transaction']['three_d_secure_verification']['pa_status'];
+      if (isset($three_d)) {
+        $three_d = '3-D Secure: ' . $three_d . '.';
+      } 
     }
 
     $this->log->write("Webhook received: $postData");
