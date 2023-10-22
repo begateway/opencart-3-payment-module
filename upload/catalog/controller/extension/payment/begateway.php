@@ -126,10 +126,12 @@ class ControllerExtensionPaymentBeGateway extends Controller {
     curl_setopt($curl, CURLOPT_POSTFIELDS, $post_string);
 
     $response = curl_exec($curl);
+    $curl_error = curl_error($curl);
+    $curl_errno = curl_errno($curl);
     curl_close($curl);
 
     if (!$response) {
-      $this->log->write('Payment token request failed: ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
+      $this->log->write("Payment token request failed: $curl_error ($curl_errno)");
       return false;
     }
 

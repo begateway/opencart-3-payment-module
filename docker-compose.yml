@@ -6,7 +6,7 @@ services:
       context: ./docker
       dockerfile: Dockerfile
     depends_on:
-      - mysql
+      - db
     ports:
       - 80:80
     cap_add:
@@ -23,7 +23,6 @@ services:
       - ./upload/catalog/language/ru-ru/extension/payment/begateway.php:/var/www/html/catalog/language/ru-ru/extension/payment/begateway.php
       - ./upload/catalog/model/extension/payment/begateway.php:/var/www/html/catalog/model/extension/payment/begateway.php
       - ./upload/catalog/view/theme/default/template/extension/payment/begateway.twig:/var/www/html/catalog/view/theme/default/template/extension/payment/begateway.twig
-    restart: always
 
   ocstore_3_0:
     build:
@@ -39,9 +38,8 @@ services:
       <<: *build
     <<: *opencart
 
-  mysql:
-    image: mysql:5.5
-    restart: always
+  db:
+    image: mariadb:10.9
     volumes:
       - /var/lib/mysql
       - ./docker/etc/mysql/mysql.conf.d/sql_mode.cnf:/etc/mysql/mysql.conf.d/sql_mode.cnf
