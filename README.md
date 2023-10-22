@@ -5,7 +5,8 @@
 ### Installation
 
 * Backup your webstore and database
-* Upload the module file [opencart-3-begateway-payment-module.ocmod.zip](https://github.com/begateway/opencart-3-payment-module/raw/master/opencart-3-begateway-payment-module.ocmod.zip) via _Extensions_ -> _Extension Installer_
+* Download from [Github releases page](https://github.com/begateway/opencart-3-payment-module/releases) the latest module archive `opencart-3-begateway-payment-module.ocmod.zip`
+* Upload `opencart-3-begateway-payment-module.ocmod.zip` to your OpenCart or ocStore installation using the administrator menu _Extensions_ -> _Extension Installer_
 * Activate the module in payment extensions (_Extensions_ -> _Payments_)
 * Configure the module settings:
   * Shop Id
@@ -56,7 +57,8 @@ Issue pull requests or send feature requests or open [a new issue]( https://gith
 ### Установка
 
 * Создайте резервную копию вашего магазина и базы данных
-* Загрузите файл модуля [opencart-3-begateway-payment-module.ocmod.zip](https://github.com/begateway/opencart-3-payment-module/raw/master/opencart-3-begateway-payment-module.ocmod.zip) с помощью _Модули_ -> _Установка расширений_
+* Скачайте со страницы [Github релизов](https://github.com/begateway/opencart-3-payment-module/releases) архив модуля `opencart-3-begateway-payment-module.ocmod.zip` 
+* Загрузите `opencart-3-begateway-payment-module.ocmod.zip` в ваш OpenCart или ocStore с помощью меню адиминистратора _Модули_ -> _Установка расширений_
 * Активируйте модуль BeGateway в модулях оплаты (_Модули_ -> _Оплата_)
 * Задайте в настройках модуля BeGateway:
   * Id магазина
