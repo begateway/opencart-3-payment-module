@@ -15,7 +15,7 @@ jobs:
       with:
         type: 'zip'
         filename: 'release.zip'
-        exclusions: '*.git* docker* LICENSE* Makefile README* *.zip'
+        exclusions: '*.git* docker* LICENSE* Makefile README* *.zip /*docker/*'
 
     - name: Upload Release
       uses: ncipollo/release-action@v1.12.0
